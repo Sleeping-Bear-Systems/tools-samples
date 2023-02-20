@@ -19,7 +19,7 @@ internal static class Program
 
             return 0;
         }
-        catch (Exception e)
+        catch (Exception)
         {
             return 1;
         }
