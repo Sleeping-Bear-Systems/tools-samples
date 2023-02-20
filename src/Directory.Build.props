@@ -1,0 +1,29 @@
+<Project>
+  <!--
+    Build Properties
+  -->
+  <PropertyGroup>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <IsPackable>false</IsPackable>
+    <LangVersion>10</LangVersion>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <!--
+    Nuget Package Properties
+  -->
+  <PropertyGroup>
+    <Authors>Charles Farris</Authors>
+    <Company>Sleeping Bear Systems</Company>
+    <Copyright>Copyright (c) 2023-$([System.DateTime]::Now.Year) Charles Farris</Copyright>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <DebugType>embedded</DebugType>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(TEAMCITY_VERSION)' != ''">
+    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+  </PropertyGroup>
+</Project>
