@@ -8,7 +8,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{E718D013-433
 		src\Directory.Build.props = src\Directory.Build.props
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SqliteDatabase", "src\SqliteDatabase\SqliteDatabase.csproj", "{90CB3D3F-D578-44CF-B134-35DD864D79C7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UseSqliteDatabase", "src\UseSqliteDatabase\UseSqliteDatabase.csproj", "{90CB3D3F-D578-44CF-B134-35DD864D79C7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
