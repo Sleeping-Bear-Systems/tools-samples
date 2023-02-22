@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <AssemblyName>SleepingBearSystems.ToolsSamples.UseSqliteDatabase</AssemblyName>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>SleepingBearSystems.ToolsSamples.UseSqliteDatabase</RootNamespace>
+    <TargetFramework>net7.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Serilog" Version="2.12.0" />
+    <PackageReference Include="Serilog.Sinks.Console" Version="4.1.0" />
+    <PackageReference Include="SleepingBearSystems.Tools.Persistence.Sqlite" Version="0.3.0.319" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="PopulateDatabase.sql" />
+    <Content Include="PopulateDatabase.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+</Project>
