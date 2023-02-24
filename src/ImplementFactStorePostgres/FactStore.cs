@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 using SleepingBearSystems.Tools.Common;
 using SleepingBearSystems.Tools.Persistence;
 
-namespace SleepingBearSystems.ToolsSamples.ImplementFactStoreSqlite;
+namespace SleepingBearSystems.ToolsSamples.ImplementFactStorePostgres;
 
 /// <summary>
 ///     Class for persisting facts in a database.
