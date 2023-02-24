@@ -2,6 +2,7 @@
 using System.Globalization;
 using Serilog;
 using Serilog.Core;
+using Serilog.Data;
 using SleepingBearSystems.Tools.Persistence;
 using SleepingBearSystems.Tools.Persistence.Sqlite;
 
@@ -19,9 +20,13 @@ internal static class Program
                 .WriteTo.Console(formatProvider: CultureInfo.InvariantCulture)
                 .CreateLogger();
 
+            logger.Information("Use SqliteDatabase...");
             ManuallyCreateSqliteDatabase(logger);
 
+            logger.Information("Use TemporaryDatabaseGuard...");
             UseTemporaryDatabaseGuard(logger);
+
+            logger.Information("Exiting...");
 
             return 0;
         }
