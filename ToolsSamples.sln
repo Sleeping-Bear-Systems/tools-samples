@@ -10,6 +10,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{E718D013-433
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UseSqliteDatabase", "src\UseSqliteDatabase\UseSqliteDatabase.csproj", "{90CB3D3F-D578-44CF-B134-35DD864D79C7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImplementFactStoreSqlite", "src\ImplementFactStoreSqlite\ImplementFactStoreSqlite.csproj", "{A685A65B-9A05-41EE-B52F-E3C1D902CA1F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,8 +25,13 @@ Global
 		{90CB3D3F-D578-44CF-B134-35DD864D79C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{90CB3D3F-D578-44CF-B134-35DD864D79C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{90CB3D3F-D578-44CF-B134-35DD864D79C7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A685A65B-9A05-41EE-B52F-E3C1D902CA1F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A685A65B-9A05-41EE-B52F-E3C1D902CA1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A685A65B-9A05-41EE-B52F-E3C1D902CA1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A685A65B-9A05-41EE-B52F-E3C1D902CA1F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{90CB3D3F-D578-44CF-B134-35DD864D79C7} = {E718D013-4331-4DC4-94C7-0EBBAB1F2EFD}
+		{A685A65B-9A05-41EE-B52F-E3C1D902CA1F} = {E718D013-4331-4DC4-94C7-0EBBAB1F2EFD}
 	EndGlobalSection
 EndGlobal

@@ -32,11 +32,9 @@ internal static class Program
         }
     }
 
-    private sealed record UserData(int Id, string Name, string Password);
-
     /// <summary>
-    /// Creates an SQLite database, populates it with data, and then reads the data.  Uses the
-    /// <see cref="SqliteDatabase"/> class to create a temporary SQLite database.
+    ///     Creates an SQLite database, populates it with data, and then reads the data.  Uses the
+    ///     <see cref="SqliteDatabase" /> class to create a temporary SQLite database.
     /// </summary>
     private static void ManuallyCreateSqliteDatabase(ILogger logger)
     {
@@ -59,8 +57,8 @@ internal static class Program
     }
 
     /// <summary>
-    /// Creates an SQLite database, populates it with data, and then reads the data.  Uses the
-    /// <see cref="TemporaryDatabaseGuard"/> class to create a temporary SQLite database.
+    ///     Creates an SQLite database, populates it with data, and then reads the data.  Uses the
+    ///     <see cref="TemporaryDatabaseGuard" /> class to create a temporary SQLite database.
     /// </summary>
     private static void UseTemporaryDatabaseGuard(ILogger logger)
     {
@@ -73,7 +71,7 @@ internal static class Program
     }
 
     /// <summary>
-    /// Writes and reads information from the database using a <see cref="ISqlConnectionGuard"/> instance.
+    ///     Writes and reads information from the database using a <see cref="ISqlConnectionGuard" /> instance.
     /// </summary>
     /// <param name="logger"></param>
     /// <param name="connectionGuard"></param>
@@ -91,20 +89,20 @@ internal static class Program
         {
             logger.Information("Reading Data...");
             using var command = connectionGuard.CreateCommand(
-                commandText: "SELECT id, name, password FROM sbs_user_data",
+                "SELECT id, name, password FROM sbs_user_data",
                 TimeSpan.FromSeconds(300));
             var users = command.ReadRecords(reader => new UserData(
                 reader.GetInt32(0),
                 reader.GetString(1),
                 reader.GetString(2)));
             foreach (var user in users)
-            {
                 logger.Information(
                     "Id: {UserId} Name: {UserName} Password: {UserPassword}",
                     user.Id,
                     user.Name,
                     user.Password);
-            }
         }
     }
+
+    private sealed record UserData(int Id, string Name, string Password);
 }
