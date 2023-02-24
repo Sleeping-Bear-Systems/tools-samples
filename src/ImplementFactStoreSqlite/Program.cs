@@ -18,16 +18,16 @@ internal static class Program
                 .WriteTo.Console(formatProvider: CultureInfo.InvariantCulture)
                 .CreateLogger();
 
-            using var guard = TemporaryDatabaseGuard.FromPath(logger);
-
             var databaseUpgradeTasks = ImmutableList<DatabaseUpgradeTask>
                 .Empty
                 .Add(DatabaseUpgradeTask.FromEmbeddedResource(
                     new DatabaseVersion("fact_store", 1, new Guid("A94E91FC-2784-4E8D-89A7-FAC474E36C79")),
                     typeof(FactStore),
                     "Task001_AddFactsTable.sql"));
-            guard.Database.CreateDatabaseVersionTable();
-            guard.Database.UpgradeDatabase(databaseUpgradeTasks);
+
+            using var guard = TemporaryDatabaseGuard
+                .FromPath(logger)
+                .UpgradeDatabase(databaseUpgradeTasks);
 
             logger.Information("Create fact store...");
             var factStore = new FactStore(guard.Database);

@@ -8,14 +8,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="JetBrains.Annotations" Version="2022.3.1"/>
-    <PackageReference Include="Serilog" Version="2.12.0"/>
-    <PackageReference Include="Serilog.Sinks.Console" Version="4.1.0"/>
-    <PackageReference Include="SleepingBearSystems.Tools.Persistence.Postgres" Version="0.3.0.333"/>
+    <PackageReference Include="JetBrains.Annotations" Version="2022.3.1" />
+    <PackageReference Include="Serilog" Version="2.12.0" />
+    <PackageReference Include="Serilog.Sinks.Console" Version="4.1.0" />
+    <PackageReference Include="SleepingBearSystems.Tools.Persistence.Postgres" Version="0.3.0.335" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="**/*.sql"/>
+    <EmbeddedResource Include="**/*.sql" />
   </ItemGroup>
 
 </Project>
