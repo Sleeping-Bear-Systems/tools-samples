@@ -66,6 +66,8 @@ internal static class Program
                 });
             LogUsers(logger, repository);
 
+            logger.Information("Exiting...");
+
             return 0;
         }
         catch (Exception ex)
