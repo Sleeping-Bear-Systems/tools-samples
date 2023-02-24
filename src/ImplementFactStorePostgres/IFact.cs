@@ -1,4 +1,4 @@
-namespace SleepingBearSystems.ToolsSamples.ImplementFactStoreSqlite;
+namespace SleepingBearSystems.ToolsSamples.ImplementFactStorePostgres;
 
 /// <summary>
 ///     Fact interface.

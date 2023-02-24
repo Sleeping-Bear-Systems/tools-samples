@@ -2,9 +2,9 @@
 using System.Globalization;
 using Serilog;
 using SleepingBearSystems.Tools.Persistence;
-using SleepingBearSystems.Tools.Persistence.Sqlite;
+using SleepingBearSystems.Tools.Persistence.Postgres;
 
-namespace SleepingBearSystems.ToolsSamples.ImplementFactStoreSqlite;
+namespace SleepingBearSystems.ToolsSamples.ImplementFactStorePostgres;
 
 internal static class Program
 {
@@ -18,7 +18,9 @@ internal static class Program
                 .WriteTo.Console(formatProvider: CultureInfo.InvariantCulture)
                 .CreateLogger();
 
-            using var guard = TemporaryDatabaseGuard.FromPath(logger);
+            using var guard = TemporaryDatabaseGuard.FromEnvironmentVariable(
+                logger,
+                "SBS_TEST_SERVER_POSTGRES");
 
             var databaseUpgradeTasks = ImmutableList<DatabaseUpgradeTask>
                 .Empty

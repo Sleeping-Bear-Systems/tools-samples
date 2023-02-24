@@ -1,7 +1,7 @@
 using System.Collections.Immutable;
 using JetBrains.Annotations;
 
-namespace SleepingBearSystems.ToolsSamples.ImplementFactStoreSqlite;
+namespace SleepingBearSystems.ToolsSamples.ImplementFactStorePostgres;
 
 /// <summary>
 ///     User record.

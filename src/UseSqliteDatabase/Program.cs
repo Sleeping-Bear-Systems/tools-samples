@@ -2,7 +2,6 @@
 using System.Globalization;
 using Serilog;
 using Serilog.Core;
-using Serilog.Data;
 using SleepingBearSystems.Tools.Persistence;
 using SleepingBearSystems.Tools.Persistence.Sqlite;
 
