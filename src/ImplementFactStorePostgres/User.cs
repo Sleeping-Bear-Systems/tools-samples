@@ -63,31 +63,21 @@ public sealed class UserRepository
     /// <returns>A collection of users.</returns>
     public ImmutableList<User> GetUsers()
     {
-        var dictionary = new Dictionary<Guid, User>();
-        var facts = this._factStore.GetFacts("users");
-        foreach (var fact in facts)
-            switch (fact)
-            {
-                case UserCreatedFact created:
-                    dictionary.Add(created.Id, new User(created.Id, created.Name, created.Password));
-                    break;
-                case UserNameChangedFact nameChanged:
-                    dictionary[nameChanged.Id] = dictionary[nameChanged.Id] with
-                    {
-                        Name = nameChanged.Name
-                    };
-                    break;
-                case UserPasswordChangedFact passwordChanged:
-                    dictionary[passwordChanged.Id] = dictionary[passwordChanged.Id] with
-                    {
-                        Password = passwordChanged.Password
-                    };
-                    break;
-                case UserDeletedFact userDeleted:
-                    dictionary.Remove(userDeleted.Id);
-                    break;
-            }
-
-        return dictionary.Values.ToImmutableList();
+        return this._factStore.GetFacts("users")
+            .Aggregate(
+                ImmutableDictionary<Guid, User>.Empty,
+                (users, fact) => fact switch
+                {
+                    UserCreatedFact created => users.Add(created.Id,
+                        new User(created.Id, created.Name, created.Password)),
+                    UserNameChangedFact nameChanged => users.SetItem(nameChanged.Id,
+                        users[nameChanged.Id] with { Name = nameChanged.Name }),
+                    UserPasswordChangedFact passwordChanged => users.SetItem(passwordChanged.Id,
+                        users[passwordChanged.Id] with { Password = passwordChanged.Password }),
+                    UserDeletedFact userDeleted => users.Remove(userDeleted.Id),
+                    _ => users
+                })
+            .Values
+            .ToImmutableList();
     }
 }
