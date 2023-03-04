@@ -10,7 +10,7 @@
   <ItemGroup>
     <PackageReference Include="Serilog" Version="2.12.0" />
     <PackageReference Include="Serilog.Sinks.Console" Version="4.1.0" />
-    <PackageReference Include="SleepingBearSystems.Tools.Persistence.Sqlite" Version="0.3.0.335" />
+    <PackageReference Include="SleepingBearSystems.Tools.Persistence.Sqlite" Version="0.3.0.338" />
   </ItemGroup>
 
   <ItemGroup>
