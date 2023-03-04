@@ -55,14 +55,14 @@ internal static class Program
             LogUsers(logger, repository);
 
             logger.Information("Update users...");
-            factStore.AppendFacts(
-                "users",
-                new IFact[]
-                {
-                    new UserNameChangedFact(userId2, "jane_blue"),
-                    new UserPasswordChangedFact(userId2, "123password"),
-                    new UserDeletedFact(userId1)
-                });
+            var facts = new IFact[]
+            {
+                new UserNameChangedFact(userId2, "jane_blue"),
+                new UserPasswordChangedFact(userId2, "123password"),
+                new UserDeletedFact(userId1)
+            };
+            foreach (var fact in facts) logger.Information("fact: {Fact}", fact);
+            factStore.AppendFacts("users", facts);
             LogUsers(logger, repository);
 
             logger.Information("Exiting...");

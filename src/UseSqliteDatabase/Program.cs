@@ -1,5 +1,6 @@
 ﻿using System.Data.SQLite;
 using System.Globalization;
+using System.Reflection;
 using Serilog;
 using Serilog.Core;
 using SleepingBearSystems.Tools.Persistence;
@@ -84,7 +85,9 @@ internal static class Program
         // populate database
         {
             logger.Information("Populating Database...");
-            var commandText = File.ReadAllText("PopulateDatabase.sql");
+            var assemblyPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            var sqlPath = Path.Combine(assemblyPath!, "PopulateDatabase.sql");
+            var commandText = File.ReadAllText(sqlPath);
             using var command = connectionGuard.CreateCommand(commandText, TimeSpan.FromSeconds(300));
             command.ExecuteNonQuery();
         }
