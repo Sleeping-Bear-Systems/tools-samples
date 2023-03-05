@@ -14,6 +14,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImplementFactStoreSqlite", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImplementFactStorePostgres", "src\ImplementFactStorePostgres\ImplementFactStorePostgres.csproj", "{9388F0F7-3F51-4C57-935D-AF5070363990}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UseRailwayOrientedProgramming", "src\UseRailwayOrientedProgramming\UseRailwayOrientedProgramming.csproj", "{A5D46132-4C65-45CA-8CC4-1A87E7360668}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,10 +37,15 @@ Global
 		{9388F0F7-3F51-4C57-935D-AF5070363990}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9388F0F7-3F51-4C57-935D-AF5070363990}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9388F0F7-3F51-4C57-935D-AF5070363990}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A5D46132-4C65-45CA-8CC4-1A87E7360668}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5D46132-4C65-45CA-8CC4-1A87E7360668}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5D46132-4C65-45CA-8CC4-1A87E7360668}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5D46132-4C65-45CA-8CC4-1A87E7360668}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{90CB3D3F-D578-44CF-B134-35DD864D79C7} = {E718D013-4331-4DC4-94C7-0EBBAB1F2EFD}
 		{A685A65B-9A05-41EE-B52F-E3C1D902CA1F} = {E718D013-4331-4DC4-94C7-0EBBAB1F2EFD}
 		{9388F0F7-3F51-4C57-935D-AF5070363990} = {E718D013-4331-4DC4-94C7-0EBBAB1F2EFD}
+		{A5D46132-4C65-45CA-8CC4-1A87E7360668} = {E718D013-4331-4DC4-94C7-0EBBAB1F2EFD}
 	EndGlobalSection
 EndGlobal

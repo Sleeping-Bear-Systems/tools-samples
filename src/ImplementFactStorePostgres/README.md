@@ -1,6 +1,6 @@
-# SleepingBearSystems.ToolsSample
+# ImplementFactStorePostgres
 
-## Implement FactStore Postgres
+---
 
 The sample illustrates the use of the versioned SQLite databases using *SleepingBearSystems.Tools.Persistence.Sqlite*
 library. The sample program creates a Postgres database *TemporaryDatabaseGuard* class, versions it,
