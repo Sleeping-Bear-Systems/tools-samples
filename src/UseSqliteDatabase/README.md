@@ -1,6 +1,6 @@
-# SleepingBearSystems.ToolsSample
+# UseSqliteDatabase
 
-## Use SQLite Database Sample
+---
 
 This sample illustrates the use of the SQLite databases using *SleepingBearSystems.Tools.Persistence.Sqlite*
 library. The sample program creates two SQLite databases using the *SqliteDatabase* and

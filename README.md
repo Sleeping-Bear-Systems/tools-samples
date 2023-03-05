@@ -1,5 +1,6 @@
 # Tools-Samples
 
+---
 ## Introduction
 Sample projects for the `SleepingBearSystems.Tools` code base.  These projects also serve as prototypes for the development of new features in the `SleepingBearSystems.Tools` NuGet packages.
  
@@ -9,7 +10,6 @@ Sample projects for the `SleepingBearSystems.Tools` code base.  These projects a
 ## Projects
 
 * **UseSqliteDatabase**: Sample project illustrating the use of the `SleepingBearSystems.Tools.Persistence.Sqlite` NuGet package.
-
-* **ImplementFactStoreSqlite**: Sample project illustrating the use of the database versioning in the `SleepingBearSystems.Tools.Persistence` NuGetPackage on a SQLite database to implement a simple event sourcing demo.
-
-* **ImplementFactStorePostgres**: Sample project illustrating the use of the database versioning in the `SleepingBearSystems.Tools.Persistence` NuGetPackage on a Postgres database to implement a simple event sourcing demo.
+* **ImplementFactStoreSqlite**: Sample project illustrating the use of the database versioning in the `SleepingBearSystems.Tools.Persistence` NuGet package on a SQLite database to implement a simple event sourcing demo.
+* **ImplementFactStorePostgres**: Sample project illustrating the use of the database versioning in the `SleepingBearSystems.Tools.Persistence` NuGet package on a Postgres database to implement a simple event sourcing demo.
+* **UseRailwayOrientedProgramming**: Sample project illustrating the use of the railway programming classes in the `SleepingBearSystems.Tools.Railway` NuGet package.

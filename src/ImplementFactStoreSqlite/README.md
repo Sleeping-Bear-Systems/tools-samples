@@ -1,6 +1,6 @@
-# SleepingBearSystems.ToolsSample
+# ImplementFactStoreSqlite
 
-## Implement FactStore SQLite
+---
 
 The sample illustrates the use of the versioned SQLite databases using *SleepingBearSystems.Tools.Persistence.Sqlite*
 library. The sample program creates an SQLite database *TemporaryDatabaseGuard* class, versions it,

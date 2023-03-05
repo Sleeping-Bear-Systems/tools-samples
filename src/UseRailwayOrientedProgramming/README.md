@@ -1,8 +1,8 @@
-# SleepingBearSystems.ToolsSample
+# UseRailwayOrientedProgramming
 
-## Use Railway Oriented Programming
+---
 
-This sample illustrate the use of the railway oriented programming using *SleepingBearSystems.Tools.Railway*. 
+This sample illustrate the use of the railway oriented programming using *SleepingBearSystems.Tools.Railway*.
 The sample program uses `Result` class to implement ROP for several different programming
 tasks including validation and file handling.
 
