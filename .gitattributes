@@ -1,0 +1,6 @@
+# For detailed discussion of line-endings and .gitattributes see
+# http://stackoverflow.com/questions/170961/whats-the-best-crlf-handling-strategy-with-git
+# spell-checker:words autocrlf gitattr asax ashx bmml datasource rdlc resx xlsb
+
+# Set default behavior, in case users don't have core.autocrlf set.
+*             text eol=lf
