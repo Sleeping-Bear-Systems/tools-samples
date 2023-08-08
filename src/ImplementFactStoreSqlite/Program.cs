@@ -1,6 +1,8 @@
 ﻿using System.Collections.Immutable;
 using System.Globalization;
 using Serilog;
+using SleepingBearSystems.Tools.Common;
+using SleepingBearSystems.Tools.Persistence;
 using SleepingBearSystems.Tools.Persistence.Sqlite;
 
 namespace SleepingBearSystems.ToolsSamples.ImplementFactStoreSqlite;
@@ -17,19 +19,16 @@ internal static class Program
                 .WriteTo.Console(formatProvider: CultureInfo.InvariantCulture)
                 .CreateLogger();
 
+            var sql = typeof(FactStore).GetStringEmbeddedResource("Task001_AddFactsTable.sql");
             var databaseUpgradeTasks = ImmutableList<DatabaseUpgradeTask>
                 .Empty
-                .Add(DatabaseUpgradeTask.FromEmbeddedResource(
-                    new DatabaseVersion("fact_store", 1, new Guid("A94E91FC-2784-4E8D-89A7-FAC474E36C79")),
-                    typeof(FactStore),
-                    "Task001_AddFactsTable.sql"));
+                .Add(DatabaseUpgradeTask.Create("1.0.0:A94E91FC27844E8D89A7FAC474E36C79", sql.Unwrap()!));
 
-            using var guard = TemporaryDatabaseGuard
-                .FromPath(logger)
-                .UpgradeDatabase(databaseUpgradeTasks);
+            using var guard = TemporaryDatabaseGuard.Create();
+            guard.DatabaseInfo.UpgradeDatabase(databaseUpgradeTasks);
 
             logger.Information("Create fact store...");
-            var factStore = new FactStore(guard.Database);
+            var factStore = new FactStore(guard.DatabaseInfo);
 
             logger.Information("Register fact types...");
             factStore.RegisterFact<UserCreatedFact>();

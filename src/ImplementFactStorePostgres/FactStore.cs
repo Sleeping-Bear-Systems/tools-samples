@@ -71,7 +71,7 @@ public sealed class FactStore
             return;
         }
 
-        var guard = await this._databaseInfo.ToSqlConnectionGuardAsync(cancellationToken);
+        var guard = await SqlConnectionGuard.CreateAsync(this._databaseInfo, cancellationToken);
         await using var command = guard.CreateCommand(AppendEventSql.Value);
         foreach (var fact in validFacts)
         {
@@ -104,7 +104,7 @@ public sealed class FactStore
             throw new ArgumentNullException(nameof(streamId));
         }
 
-        await using var guard = await this._databaseInfo.ToSqlConnectionGuardAsync(cancellationToken);
+        await using var guard = await SqlConnectionGuard.CreateAsync(this._databaseInfo, cancellationToken);
         await using var command = guard.CreateCommand(GetEventsSql.Value);
         command.AddParameter("@streamId", streamId, DbType.String);
         await using var reader = await command.ExecuteReaderAsync(cancellationToken);

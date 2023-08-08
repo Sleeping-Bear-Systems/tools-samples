@@ -1,10 +1,9 @@
-using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
 using System.Text;
 using Newtonsoft.Json;
 using SleepingBearSystems.Tools.Common;
+using SleepingBearSystems.Tools.Persistence;
+using SleepingBearSystems.Tools.Persistence.Sqlite;
 
 namespace SleepingBearSystems.ToolsSamples.ImplementFactStoreSqlite;
 
@@ -23,16 +22,16 @@ public sealed class FactStore
             .GetStringEmbeddedResource("GetFacts.sql")
             .GetValueOrThrow()!);
 
-    private readonly IDatabase _database;
+    private readonly DatabaseInfo _databaseInfo;
 
     private readonly Dictionary<string, Type> _factRegistry = new();
 
     /// <summary>
     ///     Constructor.
     /// </summary>
-    public FactStore(IDatabase database)
+    public FactStore(DatabaseInfo databaseInfo)
     {
-        this._database = database ?? throw new ArgumentNullException(nameof(database));
+        this._databaseInfo = databaseInfo ?? throw new ArgumentNullException(nameof(databaseInfo));
     }
 
     /// <summary>
@@ -70,8 +69,8 @@ public sealed class FactStore
             return;
         }
 
-        using var connection = this._database.StartConnection();
-        using var command = connection.CreateCommand(AppendEventSql.Value);
+        var guard = SqlConnectionGuard.Create(this._databaseInfo);
+        using var command = guard.CreateCommand(AppendEventSql.Value);
         foreach (var fact in validFacts)
         {
             var type = fact.GetType().Name;
@@ -80,8 +79,8 @@ public sealed class FactStore
             command
                 .AddParameter("@streamId", streamId, DbType.String)
                 .AddParameter("@factType", type, DbType.String)
-                .AddParameter("@factData", data, DbType.Binary)
-                .ExecuteNonQuery();
+                .AddParameter("@factData", data, DbType.Binary);
+            command.ExecuteNonQuery();
         }
     }
 
@@ -102,8 +101,8 @@ public sealed class FactStore
             throw new ArgumentNullException(nameof(streamId));
         }
 
-        using var connection = this._database.StartConnection();
-        using var command = connection.CreateCommand(GetEventsSql.Value);
+        using var guard = SqlConnectionGuard.Create(this._databaseInfo);
+        using var command = guard.CreateCommand(GetEventsSql.Value);
         command.AddParameter("@streamId", streamId, DbType.String);
         using var reader = command.ExecuteReader();
         var events = new List<IFact>();
