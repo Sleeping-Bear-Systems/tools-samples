@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Immutable;
+using System.Linq;
 using JetBrains.Annotations;
 
 namespace SleepingBearSystems.ToolsSamples.ImplementFactStoreSqlite;

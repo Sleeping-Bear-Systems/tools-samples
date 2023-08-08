@@ -1,8 +1,10 @@
+using System;
+using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using System.Text;
 using Newtonsoft.Json;
 using SleepingBearSystems.Tools.Common;
-using SleepingBearSystems.Tools.Persistence;
 
 namespace SleepingBearSystems.ToolsSamples.ImplementFactStoreSqlite;
 

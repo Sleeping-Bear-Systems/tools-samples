@@ -3,7 +3,6 @@ using System.Globalization;
 using System.Reflection;
 using Serilog;
 using Serilog.Core;
-using SleepingBearSystems.Tools.Persistence;
 using SleepingBearSystems.Tools.Persistence.Sqlite;
 
 namespace SleepingBearSystems.ToolsSamples.UseSqliteDatabase;
