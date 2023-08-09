@@ -2,7 +2,6 @@
 using System.Globalization;
 using System.Reflection;
 using Serilog;
-using Serilog.Core;
 using SleepingBearSystems.Tools.Persistence;
 using SleepingBearSystems.Tools.Persistence.Sqlite;
 
@@ -38,8 +37,7 @@ internal static class Program
     }
 
     /// <summary>
-    ///     Creates an SQLite database, populates it with data, and then reads the data.  Uses the
-    ///     <see cref="SqliteDatabase" /> class to create a temporary SQLite database.
+    ///     Creates an SQLite database, populates it with data, and then reads the data.
     /// </summary>
     private static void ManuallyCreateSqliteDatabase(ILogger logger)
     {
@@ -52,13 +50,17 @@ internal static class Program
             FailIfMissing = false
         };
         var connectionString = builder.ToString();
+        var databaseInfo = DatabaseInfo.FromConnectionString(connectionString);
         logger.Information("Connection String: {ConnectionString}", connectionString);
-        var database = SqliteDatabase.FromParameters(connectionString, "sqlite");
+        databaseInfo.CreateDatabase();
 
         // open a connection
-        using var connectionGuard = database.StartConnection();
+        using (var connectionGuard = SqlConnectionGuard.Create(databaseInfo))
+        {
+            UseDatabase(logger, connectionGuard);
+        }
 
-        UseDatabase(logger, connectionGuard);
+        File.Delete(path);
     }
 
     /// <summary>
@@ -67,20 +69,20 @@ internal static class Program
     /// </summary>
     private static void UseTemporaryDatabaseGuard(ILogger logger)
     {
-        using var guard = TemporaryDatabaseGuard.FromPath(Logger.None);
+        using var guard = TemporaryDatabaseGuard.Create();
 
         // open a connection
-        using var connectionGuard = guard.Database.StartConnection();
+        using var connectionGuard = SqlConnectionGuard.Create(guard.DatabaseInfo);
 
         UseDatabase(logger, connectionGuard);
     }
 
     /// <summary>
-    ///     Writes and reads information from the database using a <see cref="ISqlConnectionGuard" /> instance.
+    ///     Writes and reads information from the database using a <see cref="SqlConnectionGuard" /> instance.
     /// </summary>
     /// <param name="logger"></param>
     /// <param name="connectionGuard"></param>
-    private static void UseDatabase(ILogger logger, ISqlConnectionGuard connectionGuard)
+    private static void UseDatabase(ILogger logger, SqlConnectionGuard connectionGuard)
     {
         // populate database
         {

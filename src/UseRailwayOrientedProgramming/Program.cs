@@ -28,7 +28,7 @@ internal static class Program
             {
                 const string value = "The quick brown fox...";
                 var result = value
-                    .ToResult(tag: "valid_tag")
+                    .ToResult("valid_tag")
                     .Check(v => !string.IsNullOrEmpty(v), "String cannot be null or empty.");
                 result.LogResult(logger, indentationMap);
                 logger.Information("valid value: {Value}", result.Unwrap());
@@ -40,7 +40,7 @@ internal static class Program
             {
                 const string value = "";
                 var result = value
-                    .ToResult(tag: "invalid_tag")
+                    .ToResult("invalid_tag")
                     .Check(v => !string.IsNullOrEmpty(v), "String cannot be null or empty.");
                 result.LogResult(logger, indentationMap);
             }
@@ -53,7 +53,7 @@ internal static class Program
             {
                 var user = new User("jack_white", "password1234");
                 var result = user
-                    .ToResult(tag: "valid_user")
+                    .ToResult("valid_user")
                     .Check(u => !string.IsNullOrWhiteSpace(u.Name), "User name cannot be null, empty, or whitespace.")
                     .Check(u => u.Name.Length < 12, "User name length must be less than 12 characters.")
                     .Check(
@@ -74,14 +74,14 @@ internal static class Program
 
                 // ReSharper disable once UnusedVariable
                 var validName = user.Name
-                    .ToResult(tag: nameof(user.Name))
+                    .ToResult(nameof(user.Name))
                     .Check(v => !string.IsNullOrWhiteSpace(v), "User name cannot be null, empty, or whitespace.")
                     .Check(v => v.Length < 12, "User name length must be less than 12 characters.")
                     .UnwrapOrAddToFailuresImmutable(ref failures);
 
                 // ReSharper disable once UnusedVariable
                 var validPassword = user.Password
-                    .ToResult(tag: nameof(user.Password))
+                    .ToResult(nameof(user.Password))
                     .Check(v => !string.IsNullOrWhiteSpace(v), "Password cannot be null, empty, or whitespace.")
                     .Check(v => v.Length > 5, "Password length must be greater than 5 characters.")
                     .UnwrapOrAddToFailuresImmutable(ref failures);
@@ -109,7 +109,7 @@ internal static class Program
                     var failures = ImmutableList<Result>.Empty;
 
                     var validName = name
-                        .ToResult(tag: nameof(name))
+                        .ToResult(nameof(name))
                         .Check(v => !string.IsNullOrWhiteSpace(v), "User name cannot be null, empty, or whitespace.")
                         .Check(v => v.Length < 12, "User name length must be less than 12 characters.")
                         .UnwrapOrAddToFailuresImmutable(ref failures);
@@ -127,10 +127,8 @@ internal static class Program
 
                 // use case: valid user
                 FromParameters("jack_white", "password1234")
-                    .LogResult(logger, indentationMap, (localLogger, localUser) =>
-                    {
-                        localLogger.Information("valid user: {User}", localUser);
-                    });
+                    .LogResult(logger, indentationMap,
+                        (localLogger, localUser) => { localLogger.Information("valid user: {User}", localUser); });
 
                 // use case: invalid user
                 FromParameters("cynthia_magenta", "pass")
@@ -142,8 +140,9 @@ internal static class Program
             // lines of text from the file, and returns the concatenated lines
             logger.Information("file handling workflow");
             {
-                Result<string> GetFileContent(string filename) =>
-                    filename
+                Result<string> GetFileContent(string filename)
+                {
+                    return filename
                         .ToResultIsNotNullOrEmpty(tag: nameof(filename))
                         .Transform(validFileName =>
                         {
@@ -163,14 +162,16 @@ internal static class Program
                                 return Result<string>.Failure(ex.ToResultError("Cannot read from file."));
                             }
                         });
+                }
 
                 // use case: success
                 logger.Information("reads content from existing file");
                 GetFileContent("railway.txt")
-                    .LogResult(logger, indentationMap, (localLogger, localContent) =>
-                    {
-                        localLogger.Information("content: \"{Content}\"", localContent);
-                    });
+                    .LogResult(logger, indentationMap,
+                        (localLogger, localContent) =>
+                        {
+                            localLogger.Information("content: \"{Content}\"", localContent);
+                        });
 
                 // use case: invalid file name
                 logger.Information("fails if filename is null or empty");

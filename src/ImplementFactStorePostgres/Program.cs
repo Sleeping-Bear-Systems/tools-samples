@@ -1,6 +1,7 @@
 ﻿using System.Collections.Immutable;
 using System.Globalization;
 using Serilog;
+using SleepingBearSystems.Tools.Common;
 using SleepingBearSystems.Tools.Persistence;
 using SleepingBearSystems.Tools.Persistence.Postgres;
 
@@ -8,7 +9,7 @@ namespace SleepingBearSystems.ToolsSamples.ImplementFactStorePostgres;
 
 internal static class Program
 {
-    public static int Main()
+    public static async Task<int> Main()
     {
         ILogger? logger = default;
         try
@@ -18,21 +19,16 @@ internal static class Program
                 .WriteTo.Console(formatProvider: CultureInfo.InvariantCulture)
                 .CreateLogger();
 
+            var sql = typeof(FactStore).GetStringEmbeddedResource("Task001_AddFactsTable.sql");
             var databaseUpgradeTasks = ImmutableList<DatabaseUpgradeTask>
                 .Empty
-                .Add(DatabaseUpgradeTask.FromEmbeddedResource(
-                    new DatabaseVersion("fact_store", 1, new Guid("A94E91FC-2784-4E8D-89A7-FAC474E36C79")),
-                    typeof(FactStore),
-                    "Task001_AddFactsTable.sql"));
+                .Add(DatabaseUpgradeTask.Create("1.0.0:A94E91FC27844E8D89A7FAC474E36C79", sql.Unwrap()!));
 
-            using var guard = TemporaryDatabaseGuard
-                .FromEnvironmentVariable(
-                    logger,
-                    "SBS_TEST_SERVER_POSTGRES")
-                .UpgradeDatabase(databaseUpgradeTasks);
+            await using var guard = await TemporaryDatabaseGuard.CreateAsync();
+            await guard.DatabaseInfo.UpgradeDatabaseAsync(databaseUpgradeTasks);
 
             logger.Information("Create fact store...");
-            var factStore = new FactStore(guard.Database);
+            var factStore = new FactStore(guard.DatabaseInfo);
 
             logger.Information("Register fact types...");
             factStore.RegisterFact<UserCreatedFact>();
@@ -44,7 +40,7 @@ internal static class Program
             var userId1 = new Guid("8631C28F-0696-4601-940C-78B8D3261BE6");
             var userId2 = new Guid("D657007E-AD50-4AE7-8572-0CDB62ECAA1F");
             var userId3 = new Guid("C8E93D87-DF3F-45A2-8533-D522CC8EC341");
-            factStore.AppendFacts(
+            await factStore.AppendFactsAsync(
                 "users",
                 new IFact[]
                 {
@@ -54,7 +50,7 @@ internal static class Program
                 });
 
             var repository = new UserRepository(factStore);
-            LogUsers(logger, repository);
+            await LogUsersAsync(logger, repository);
 
             logger.Information("Update users...");
             var facts = new IFact[]
@@ -64,8 +60,8 @@ internal static class Program
                 new UserDeletedFact(userId1)
             };
             foreach (var fact in facts) logger.Information("fact: {Fact}", fact);
-            factStore.AppendFacts("users", facts);
-            LogUsers(logger, repository);
+            await factStore.AppendFactsAsync("users", facts);
+            await LogUsersAsync(logger, repository);
 
             logger.Information("Exiting...");
 
@@ -78,9 +74,9 @@ internal static class Program
         }
     }
 
-    private static void LogUsers(ILogger logger, UserRepository repository)
+    private static async Task LogUsersAsync(ILogger logger, UserRepository repository)
     {
-        var users = repository.GetUsers();
+        var users = await repository.GetUsersAsync();
         logger.Information("Count: {Count}", users.Count);
         foreach (var user in users) logger.Information("  {User}", user);
     }

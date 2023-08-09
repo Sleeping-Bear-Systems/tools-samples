@@ -63,19 +63,20 @@ public sealed class UserRepository
     /// <returns>A collection of users.</returns>
     public ImmutableList<User> GetUsers()
     {
-        return this._factStore.GetFacts("users")
+        var users = this._factStore.GetFacts("users");
+        return users
             .Aggregate(
                 ImmutableDictionary<Guid, User>.Empty,
-                (users, fact) => fact switch
+                (localUsers, fact) => fact switch
                 {
-                    UserCreatedFact created => users.Add(created.Id,
+                    UserCreatedFact created => localUsers.Add(created.Id,
                         new User(created.Id, created.Name, created.Password)),
-                    UserNameChangedFact nameChanged => users.SetItem(nameChanged.Id,
-                        users[nameChanged.Id] with { Name = nameChanged.Name }),
-                    UserPasswordChangedFact passwordChanged => users.SetItem(passwordChanged.Id,
-                        users[passwordChanged.Id] with { Password = passwordChanged.Password }),
-                    UserDeletedFact userDeleted => users.Remove(userDeleted.Id),
-                    _ => users
+                    UserNameChangedFact nameChanged => localUsers.SetItem(nameChanged.Id,
+                        localUsers[nameChanged.Id] with { Name = nameChanged.Name }),
+                    UserPasswordChangedFact passwordChanged => localUsers.SetItem(passwordChanged.Id,
+                        localUsers[passwordChanged.Id] with { Password = passwordChanged.Password }),
+                    UserDeletedFact userDeleted => localUsers.Remove(userDeleted.Id),
+                    _ => localUsers
                 })
             .Values
             .ToImmutableList();

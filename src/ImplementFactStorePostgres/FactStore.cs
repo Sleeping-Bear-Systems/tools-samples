@@ -3,6 +3,7 @@ using System.Text;
 using Newtonsoft.Json;
 using SleepingBearSystems.Tools.Common;
 using SleepingBearSystems.Tools.Persistence;
+using SleepingBearSystems.Tools.Persistence.Postgres;
 
 namespace SleepingBearSystems.ToolsSamples.ImplementFactStorePostgres;
 
@@ -21,16 +22,16 @@ public sealed class FactStore
             .GetStringEmbeddedResource("GetFacts.sql")
             .GetValueOrThrow()!);
 
-    private readonly IDatabase _database;
+    private readonly DatabaseInfo _databaseInfo;
 
     private readonly Dictionary<string, Type> _factRegistry = new();
 
     /// <summary>
     ///     Constructor.
     /// </summary>
-    public FactStore(IDatabase database)
+    public FactStore(DatabaseInfo databaseInfo)
     {
-        this._database = database ?? throw new ArgumentNullException(nameof(database));
+        this._databaseInfo = databaseInfo ?? throw new ArgumentNullException(nameof(databaseInfo));
     }
 
     /// <summary>
@@ -54,8 +55,10 @@ public sealed class FactStore
     /// </summary>
     /// <param name="streamId">The stream ID.</param>
     /// <param name="facts">The collection of facts.</param>
+    /// <param name="cancellationToken">The cancellation toke. (optional)</param>
     /// <exception cref="ArgumentNullException">Thrown if the stream ID isn't null or empty.</exception>
-    public void AppendFacts(string streamId, IEnumerable<IFact>? facts)
+    public async Task AppendFactsAsync(string streamId, IEnumerable<IFact>? facts,
+        CancellationToken cancellationToken = default)
     {
         if (string.IsNullOrEmpty(streamId))
         {
@@ -68,8 +71,8 @@ public sealed class FactStore
             return;
         }
 
-        using var connection = this._database.StartConnection();
-        using var command = connection.CreateCommand(AppendEventSql.Value);
+        var guard = await SqlConnectionGuard.CreateAsync(this._databaseInfo, cancellationToken);
+        await using var command = guard.CreateCommand(AppendEventSql.Value);
         foreach (var fact in validFacts)
         {
             var type = fact.GetType().Name;
@@ -78,8 +81,8 @@ public sealed class FactStore
             command
                 .AddParameter("@streamId", streamId, DbType.String)
                 .AddParameter("@factType", type, DbType.String)
-                .AddParameter("@factData", data, DbType.Binary)
-                .ExecuteNonQuery();
+                .AddParameter("@factData", data, DbType.Binary);
+            await command.ExecuteNonQueryAsync(cancellationToken);
         }
     }
 
@@ -87,25 +90,26 @@ public sealed class FactStore
     ///     Gets all the facts for a particular stream.
     /// </summary>
     /// <param name="streamId">The stream ID.</param>
+    /// <param name="cancellationToken">The cancellation token. (optional)</param>
     /// <returns>A collection of fact instances.</returns>
     /// <exception cref="ArgumentNullException">Thrown if the stream ID isn't null or empty.</exception>
     /// <exception cref="InvalidOperationException">
     ///     Thrown if the fact isn't registered
     ///     or the fact can't be deserialized.
     /// </exception>
-    public IEnumerable<IFact> GetFacts(string streamId)
+    public async Task<IEnumerable<IFact>> GetFactsAsync(string streamId, CancellationToken cancellationToken = default)
     {
         if (string.IsNullOrEmpty(streamId))
         {
             throw new ArgumentNullException(nameof(streamId));
         }
 
-        using var connection = this._database.StartConnection();
-        using var command = connection.CreateCommand(GetEventsSql.Value);
+        await using var guard = await SqlConnectionGuard.CreateAsync(this._databaseInfo, cancellationToken);
+        await using var command = guard.CreateCommand(GetEventsSql.Value);
         command.AddParameter("@streamId", streamId, DbType.String);
-        using var reader = command.ExecuteReader();
+        await using var reader = await command.ExecuteReaderAsync(cancellationToken);
         var events = new List<IFact>();
-        while (reader.Read())
+        while (await reader.ReadAsync(cancellationToken))
         {
             var factType = reader.GetString(0);
             if (!this._factRegistry.TryGetValue(factType, out var type))
