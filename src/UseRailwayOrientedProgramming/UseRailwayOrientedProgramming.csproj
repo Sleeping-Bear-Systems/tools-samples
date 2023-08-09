@@ -1,28 +1,28 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-    <PropertyGroup>
-        <AssemblyName>SleepingBearSystems.ToolsSamples.UseRailwayOrientedProgramming</AssemblyName>
-        <OutputType>Exe</OutputType>
-        <RootNamespace>SleepingBearSystems.ToolsSamples.UseRailwayOrientedProgramming</RootNamespace>
-        <TargetFramework>net7.0</TargetFramework>
-    </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyName>SleepingBearSystems.ToolsSamples.UseRailwayOrientedProgramming</AssemblyName>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>SleepingBearSystems.ToolsSamples.UseRailwayOrientedProgramming</RootNamespace>
+    <TargetFramework>net7.0</TargetFramework>
+  </PropertyGroup>
 
-    <ItemGroup>
-        <PackageReference Include="Autofac" Version="7.0.1"/>
-        <PackageReference Include="JetBrains.Annotations" Version="2023.2.0"/>
-        <PackageReference Include="Newtonsoft.Json" Version="13.0.3"/>
-        <PackageReference Include="Serilog" Version="3.0.1"/>
-        <PackageReference Include="Serilog.Sinks.Console" Version="4.1.0"/>
-        <PackageReference Include="SleepingBearSystems.Tools.Common" Version="1.0.0.407"/>
-        <PackageReference Include="SleepingBearSystems.Tools.Railway" Version="1.0.0.407"/>
-        <PackageReference Include="System.Diagnostics.DiagnosticSource" Version="7.0.2"/>
-    </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Autofac" Version="7.0.1"/>
+    <PackageReference Include="JetBrains.Annotations" Version="2023.2.0"/>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3"/>
+    <PackageReference Include="Serilog" Version="3.0.1"/>
+    <PackageReference Include="Serilog.Sinks.Console" Version="4.1.0"/>
+    <PackageReference Include="SleepingBearSystems.Tools.Common" Version="1.1.0.411"/>
+    <PackageReference Include="SleepingBearSystems.Tools.Railway" Version="1.1.0.411"/>
+    <PackageReference Include="System.Diagnostics.DiagnosticSource" Version="7.0.2"/>
+  </ItemGroup>
 
-    <ItemGroup>
-        <None Remove="railway.txt"/>
-        <Content Include="railway.txt">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </Content>
-    </ItemGroup>
+  <ItemGroup>
+    <None Remove="railway.txt"/>
+    <Content Include="railway.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
 
 </Project>
