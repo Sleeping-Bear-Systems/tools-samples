@@ -69,7 +69,7 @@ public sealed class FactStore
             return;
         }
 
-        var guard = SqlConnectionGuard.Create(this._databaseInfo);
+        using var guard = SqlConnectionGuard.Create(this._databaseInfo);
         using var command = guard.CreateCommand(AppendEventSql.Value);
         foreach (var fact in validFacts)
         {
