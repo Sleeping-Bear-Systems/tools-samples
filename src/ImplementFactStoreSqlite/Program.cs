@@ -2,6 +2,7 @@
 using System.Globalization;
 using Serilog;
 using SleepingBearSystems.Tools.Common;
+using SleepingBearSystems.Tools.Infrastructure;
 using SleepingBearSystems.Tools.Persistence;
 using SleepingBearSystems.Tools.Persistence.Sqlite;
 
@@ -19,10 +20,12 @@ internal static class Program
                 .WriteTo.Console(formatProvider: CultureInfo.InvariantCulture)
                 .CreateLogger();
 
-            var sql = typeof(FactStore).GetStringEmbeddedResource("Task001_AddFactsTable.sql");
+            var sql = typeof(FactStore)
+                .GetStringEmbeddedResource("Task001_AddFactsTable.sql")
+                .MatchOrThrow();
             var databaseUpgradeTasks = ImmutableList<DatabaseUpgradeTask>
                 .Empty
-                .Add(DatabaseUpgradeTask.Create("1.0.0:A94E91FC27844E8D89A7FAC474E36C79", sql.Unwrap()!));
+                .Add(DatabaseUpgradeTask.Create("1.0.0:A94E91FC27844E8D89A7FAC474E36C79", sql));
 
             using var guard = TemporaryDatabaseGuard.Create();
             guard.DatabaseInfo.UpgradeDatabase(databaseUpgradeTasks);
@@ -69,6 +72,7 @@ internal static class Program
         }
         catch (Exception ex)
         {
+            ex.FailFastIfCritical("SleepingBearSystems.ToolsSamples.ImplementFactStoreSqlite.Program");
             logger?.Error(ex, "An error occurred");
             return 1;
         }

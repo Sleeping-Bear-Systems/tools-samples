@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.Reflection;
 using Serilog;
+using SleepingBearSystems.Tools.Common;
 using SleepingBearSystems.Tools.Persistence;
 using SleepingBearSystems.Tools.Persistence.Sqlite;
 
@@ -31,6 +32,7 @@ internal static class Program
         }
         catch (Exception ex)
         {
+            ex.FailFastIfCritical("SleepingBearSystems.ToolsSamples.UseSqliteDatabase");
             logger?.Error(ex, "An error occurred");
             return 1;
         }
