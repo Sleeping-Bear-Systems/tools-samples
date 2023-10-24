@@ -1,7 +1,7 @@
 using System.Data;
 using System.Text;
 using Newtonsoft.Json;
-using SleepingBearSystems.Tools.Common;
+using SleepingBearSystems.Tools.Infrastructure;
 using SleepingBearSystems.Tools.Persistence;
 using SleepingBearSystems.Tools.Persistence.Postgres;
 
@@ -15,12 +15,12 @@ public sealed class FactStore
     private static readonly Lazy<string> AppendEventSql = new(() =>
         typeof(FactStore)
             .GetStringEmbeddedResource("AppendFact.sql")
-            .GetValueOrThrow()!);
+            .MatchOrThrow());
 
     private static readonly Lazy<string> GetEventsSql = new(() =>
         typeof(FactStore)
             .GetStringEmbeddedResource("GetFacts.sql")
-            .GetValueOrThrow()!);
+            .MatchOrThrow());
 
     private readonly DatabaseInfo _databaseInfo;
 

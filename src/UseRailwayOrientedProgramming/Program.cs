@@ -4,6 +4,7 @@ using System.Reflection;
 using Serilog;
 using SleepingBearSystems.Tools.Common;
 using SleepingBearSystems.Tools.Railway;
+using Result = SleepingBearSystems.Tools.Railway.Result;
 
 namespace SleepingBearSystems.ToolsSamples.UseRailwayOrientedProgramming;
 
@@ -159,6 +160,8 @@ internal static class Program
                             }
                             catch (Exception ex)
                             {
+                                ex.FailFastIfCritical(
+                                    "SleepingBearSystems.ToolsSamples.UseRailwayOrientedProgramming.Program");
                                 return Result<string>.Failure(ex.ToResultError("Cannot read from file."));
                             }
                         });
@@ -190,6 +193,7 @@ internal static class Program
         }
         catch (Exception ex)
         {
+            ex.FailFastIfCritical("SleepingBearSystems.ToolsSamples.UseRailwayOrientedProgramming.Program");
             logger?.Error(ex, "An error occurred");
             return 1;
         }
