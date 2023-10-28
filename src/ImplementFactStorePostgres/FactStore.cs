@@ -15,12 +15,12 @@ public sealed class FactStore
     private static readonly Lazy<string> AppendEventSql = new(() =>
         typeof(FactStore)
             .GetStringEmbeddedResource("AppendFact.sql")
-            .MatchOrThrow());
+            .MatchOrThrow(() => throw new InvalidOperationException()));
 
     private static readonly Lazy<string> GetEventsSql = new(() =>
         typeof(FactStore)
             .GetStringEmbeddedResource("GetFacts.sql")
-            .MatchOrThrow());
+            .MatchOrThrow(() => throw new InvalidOperationException()));
 
     private readonly DatabaseInfo _databaseInfo;
 
