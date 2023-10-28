@@ -22,7 +22,7 @@ internal static class Program
 
             var sql = typeof(FactStore)
                 .GetStringEmbeddedResource("Task001_AddFactsTable.sql")
-                .MatchOrThrow();
+                .MatchOrThrow(() => throw new InvalidOperationException());
             var databaseUpgradeTasks = ImmutableList<DatabaseUpgradeTask>
                 .Empty
                 .Add(DatabaseUpgradeTask.Create("1.0.0:A94E91FC27844E8D89A7FAC474E36C79", sql));
