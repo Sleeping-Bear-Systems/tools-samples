@@ -4,7 +4,6 @@ using System.Reflection;
 using Serilog;
 using SleepingBearSystems.Tools.Common;
 using SleepingBearSystems.Tools.Railway;
-using Result = SleepingBearSystems.Tools.Railway.Result;
 
 namespace SleepingBearSystems.ToolsSamples.UseRailwayOrientedProgramming;
 
