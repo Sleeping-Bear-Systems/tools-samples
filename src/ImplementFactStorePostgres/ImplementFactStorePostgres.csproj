@@ -17,7 +17,7 @@
     <PackageReference Include="Serilog.Sinks.Console" Version="4.1.0"/>
     <PackageReference Include="SleepingBearSystems.Tools.Common" Version="2.0.2-alpha"/>
     <PackageReference Include="SleepingBearSystems.Tools.Persistence" Version="2.0.2-alpha"/>
-    <PackageReference Include="SleepingBearSystems.Tools.Persistence.Postgres" Version="2.0.1-alpha"/>
+    <PackageReference Include="SleepingBearSystems.Tools.Persistence.Postgres" Version="2.0.2-alpha" />
     <PackageReference Include="System.Diagnostics.DiagnosticSource" Version="7.0.2"/>
   </ItemGroup>
 
