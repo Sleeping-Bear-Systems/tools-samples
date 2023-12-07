@@ -1,6 +1,7 @@
 ﻿using System.Collections.Immutable;
 using System.Globalization;
 using Serilog;
+using Serilog.Core;
 using SleepingBearSystems.Tools.Common;
 using SleepingBearSystems.Tools.Infrastructure;
 using SleepingBearSystems.Tools.Monad;
@@ -13,7 +14,7 @@ internal static class Program
 {
     public static int Main()
     {
-        var logger = default(Serilog.Core.Logger);
+        var logger = default(Logger);
         try
         {
             // create logger
@@ -79,7 +80,8 @@ internal static class Program
         }
     }
 
-    private static void LogUsers(Serilog.Core.Logger logger, UserRepository repository)
+    // ReSharper disable once SuggestBaseTypeForParameter
+    private static void LogUsers(Logger logger, UserRepository repository)
     {
         var users = repository.GetUsers();
         logger.Information("Count: {Count}", users.Count);
