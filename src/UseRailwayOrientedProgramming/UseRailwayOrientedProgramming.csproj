@@ -4,7 +4,7 @@
     <AssemblyName>SleepingBearSystems.ToolsSamples.UseRailwayOrientedProgramming</AssemblyName>
     <OutputType>Exe</OutputType>
     <RootNamespace>SleepingBearSystems.ToolsSamples.UseRailwayOrientedProgramming</RootNamespace>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>

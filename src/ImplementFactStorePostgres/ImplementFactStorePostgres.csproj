@@ -4,7 +4,7 @@
     <AssemblyName>SleepingBearSystems.ToolsSamples.ImplementFactStorePostgres</AssemblyName>
     <OutputType>Exe</OutputType>
     <RootNamespace>SleepingBearSystems.ToolsSamples.ImplementFactStorePostgres</RootNamespace>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>

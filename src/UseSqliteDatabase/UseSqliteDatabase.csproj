@@ -4,7 +4,7 @@
     <AssemblyName>SleepingBearSystems.ToolsSamples.UseSqliteDatabase</AssemblyName>
     <OutputType>Exe</OutputType>
     <RootNamespace>SleepingBearSystems.ToolsSamples.UseSqliteDatabase</RootNamespace>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>

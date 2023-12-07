@@ -12,7 +12,7 @@ internal static class Program
 {
     public static int Main()
     {
-        ILogger? logger = default;
+        var logger = default(Serilog.Core.Logger);
         try
         {
             // create logger
@@ -41,7 +41,7 @@ internal static class Program
     /// <summary>
     ///     Creates an SQLite database, populates it with data, and then reads the data.
     /// </summary>
-    private static void ManuallyCreateSqliteDatabase(ILogger logger)
+    private static void ManuallyCreateSqliteDatabase(Serilog.Core.Logger logger)
     {
         // create a database
         var path = Path.Combine(Path.GetTempPath(), $"sbs_sqlite_{Guid.NewGuid():N}.db");

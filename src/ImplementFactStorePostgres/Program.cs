@@ -12,7 +12,7 @@ internal static class Program
 {
     public static async Task<int> Main()
     {
-        ILogger? logger = default;
+        var logger = default(Serilog.Core.Logger);
         try
         {
             // create logger
@@ -78,7 +78,7 @@ internal static class Program
         }
     }
 
-    private static async Task LogUsersAsync(ILogger logger, UserRepository repository)
+    private static async Task LogUsersAsync(Serilog.Core.Logger logger, UserRepository repository)
     {
         var users = await repository.GetUsersAsync();
         logger.Information("Count: {Count}", users.Count);

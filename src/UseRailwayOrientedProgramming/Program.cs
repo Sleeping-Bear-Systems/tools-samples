@@ -11,7 +11,7 @@ internal static class Program
 {
     public static int Main()
     {
-        ILogger? logger = default;
+        var logger = default(Serilog.Core.Logger);
         try
         {
             // create logger

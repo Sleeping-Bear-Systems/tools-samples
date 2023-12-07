@@ -4,7 +4,7 @@
     <AssemblyName>SleepingBearSystems.ToolsSamples.ImplementFactStoreSqlite</AssemblyName>
     <OutputType>Exe</OutputType>
     <RootNamespace>SleepingBearSystems.ToolsSamples.ImplementFactStoreSqlite</RootNamespace>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>

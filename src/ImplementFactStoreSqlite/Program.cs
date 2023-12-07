@@ -13,7 +13,7 @@ internal static class Program
 {
     public static int Main()
     {
-        ILogger? logger = default;
+        var logger = default(Serilog.Core.Logger);
         try
         {
             // create logger
@@ -79,7 +79,7 @@ internal static class Program
         }
     }
 
-    private static void LogUsers(ILogger logger, UserRepository repository)
+    private static void LogUsers(Serilog.Core.Logger logger, UserRepository repository)
     {
         var users = repository.GetUsers();
         logger.Information("Count: {Count}", users.Count);
