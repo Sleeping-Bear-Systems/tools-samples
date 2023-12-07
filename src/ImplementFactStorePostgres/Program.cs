@@ -1,6 +1,7 @@
 ﻿using System.Collections.Immutable;
 using System.Globalization;
 using Serilog;
+using Serilog.Core;
 using SleepingBearSystems.Tools.Common;
 using SleepingBearSystems.Tools.Infrastructure;
 using SleepingBearSystems.Tools.Persistence;
@@ -12,7 +13,7 @@ internal static class Program
 {
     public static async Task<int> Main()
     {
-        ILogger? logger = default;
+        var logger = default(Logger);
         try
         {
             // create logger
@@ -78,7 +79,8 @@ internal static class Program
         }
     }
 
-    private static async Task LogUsersAsync(ILogger logger, UserRepository repository)
+    // ReSharper disable once SuggestBaseTypeForParameter
+    private static async Task LogUsersAsync(Logger logger, UserRepository repository)
     {
         var users = await repository.GetUsersAsync();
         logger.Information("Count: {Count}", users.Count);

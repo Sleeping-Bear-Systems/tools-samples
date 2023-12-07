@@ -4,21 +4,21 @@
     <AssemblyName>SleepingBearSystems.ToolsSamples.ImplementFactStoreSqlite</AssemblyName>
     <OutputType>Exe</OutputType>
     <RootNamespace>SleepingBearSystems.ToolsSamples.ImplementFactStoreSqlite</RootNamespace>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Autofac" Version="7.1.0"/>
-    <PackageReference Include="JetBrains.Annotations" Version="2023.2.0"/>
+    <PackageReference Include="JetBrains.Annotations" Version="2023.3.0"/>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3"/>
-    <PackageReference Include="Serilog" Version="3.0.1"/>
-    <PackageReference Include="Serilog.Sinks.Console" Version="4.1.0"/>
-    <PackageReference Include="SleepingBearSystems.Tools.Common" Version="2.0.3"/>
-    <PackageReference Include="SleepingBearSystems.Tools.Monad" Version="2.0.3"/>
-    <PackageReference Include="SleepingBearSystems.Tools.Persistence" Version="2.0.3"/>
-    <PackageReference Include="SleepingBearSystems.Tools.Persistence.Sqlite" Version="2.0.3"/>
+    <PackageReference Include="Serilog" Version="3.1.1"/>
+    <PackageReference Include="Serilog.Sinks.Console" Version="5.0.1"/>
+    <PackageReference Include="SleepingBearSystems.Tools.Common" Version="3.1.1"/>
+    <PackageReference Include="SleepingBearSystems.Tools.Monad" Version="3.1.1"/>
+    <PackageReference Include="SleepingBearSystems.Tools.Persistence" Version="3.1.1"/>
+    <PackageReference Include="SleepingBearSystems.Tools.Persistence.Sqlite" Version="3.1.1"/>
     <PackageReference Include="System.Data.SQLite.Core" Version="1.0.118"/>
-    <PackageReference Include="System.Diagnostics.DiagnosticSource" Version="7.0.2"/>
+    <PackageReference Include="System.Diagnostics.DiagnosticSource" Version="8.0.0"/>
   </ItemGroup>
 
   <ItemGroup>

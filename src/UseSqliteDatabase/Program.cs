@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.Reflection;
 using Serilog;
+using Serilog.Core;
 using SleepingBearSystems.Tools.Common;
 using SleepingBearSystems.Tools.Persistence;
 using SleepingBearSystems.Tools.Persistence.Sqlite;
@@ -12,7 +13,7 @@ internal static class Program
 {
     public static int Main()
     {
-        ILogger? logger = default;
+        var logger = default(Logger);
         try
         {
             // create logger
@@ -41,7 +42,8 @@ internal static class Program
     /// <summary>
     ///     Creates an SQLite database, populates it with data, and then reads the data.
     /// </summary>
-    private static void ManuallyCreateSqliteDatabase(ILogger logger)
+    // ReSharper disable once SuggestBaseTypeForParameter
+    private static void ManuallyCreateSqliteDatabase(Logger logger)
     {
         // create a database
         var path = Path.Combine(Path.GetTempPath(), $"sbs_sqlite_{Guid.NewGuid():N}.db");

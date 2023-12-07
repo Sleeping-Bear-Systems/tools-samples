@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.Reflection;
 using Serilog;
+using Serilog.Core;
 using SleepingBearSystems.Tools.Common;
 using SleepingBearSystems.Tools.Railway;
 
@@ -11,7 +12,7 @@ internal static class Program
 {
     public static int Main()
     {
-        ILogger? logger = default;
+        var logger = default(Logger);
         try
         {
             // create logger
